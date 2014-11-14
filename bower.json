@@ -1,0 +1,22 @@
+{
+  "name": "arrive-js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/daveross/arrive-js",
+  "description": "A jQuery-free alternative to jQuery Waypoints",
+  "main": "arrive.js",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "daveross"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
