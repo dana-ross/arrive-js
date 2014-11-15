@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/daveross/arrive-js",
   "description": "A jQuery-free alternative to jQuery Waypoints",
-  "main": "arrive.js",
+	"main": "src/arrive.js",
   "moduleType": [
     "globals"
   ],
