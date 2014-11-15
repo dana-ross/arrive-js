@@ -52,6 +52,7 @@ window.JSWaypoints = ((function () {
 		}
 
 		debouncing = false;
+		fn._ran_once = true;
 
 	}
 
@@ -61,6 +62,7 @@ window.JSWaypoints = ((function () {
 	window.addEventListener(
 		'scroll',
 		function () {
+
 			if (!debouncing) {
 				requestAnimationFrame(evaluate_waypoints);
 			}
@@ -81,6 +83,9 @@ window.JSWaypoints = ((function () {
 			'selector': selector
 		});
 	};
+
+	// For testing
+	fn._ran_once = false;
 
 	return fn;
 

@@ -13,10 +13,25 @@ module.exports = function (grunt) {
 					document: true
 				}
 			}
+		},
+
+		jasmine: {
+			components: {
+				src    : [
+					'src/*js'
+				],
+				options: {
+					specs     : 'tests/spec/*Spec.js',
+					keepRunner: true,
+					//helpers: 'test/spec/*.js'
+				}
+			}
 		}
+
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.registerTask('travis', ['jshint']);
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.registerTask('travis', ['jshint', 'jasmine']);
 
 };
