@@ -52,7 +52,6 @@ window.JSWaypoints = ((function () {
 		}
 
 		debouncing = false;
-		fn._ran_once = true;
 
 	}
 
@@ -83,9 +82,6 @@ window.JSWaypoints = ((function () {
 			'selector': selector
 		});
 	};
-
-	// For testing
-	fn._ran_once = false;
 
 	return fn;
 
