@@ -11,6 +11,17 @@ window.Arrive = ((function () {
 		waypoints = [],
 		debouncing = false;
 
+	/**
+	 * Reset all waypoint assignments
+	 * Note: does not remove classes from DOM elements
+	 * @example
+	 * Arrive.reset();
+	 */
+	fn.reset = function () {
+		waypoints = [];
+		// @TODO remove classes from DOM elements?
+	};
+
 	function evaluate_waypoints() {
 
 		var viewport_height = window.innerHeight || document.documentElement.clientHeight,
@@ -28,8 +39,17 @@ window.Arrive = ((function () {
 
 					if (element_offset.bottom < 0 || element_offset.top > viewport_height) {
 
-						// Element is not visible
-						matching_elements[matching_element_index].className = matching_elements[matching_element_index].className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+						// Element is no longer visible
+						if (0 <= matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+
+							matching_elements[matching_element_index].className = matching_elements[matching_element_index].className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+
+							// Call the waypoint's no_longer_visible_callback if defined
+							if ('function' === typeof waypoints[waypoint_index].no_longer_visible_callback) {
+								waypoints[waypoint_index].no_longer_visible_callback(matching_elements[matching_element_index]);
+							}
+
+						}
 
 					}
 					else {
@@ -40,7 +60,14 @@ window.Arrive = ((function () {
 						}
 
 						if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+
 							matching_elements[matching_element_index].className += ' waypoint-visible';
+
+							// Call the waypoint's visible_callback if defined
+							if ('function' === typeof waypoints[waypoint_index].visible_callback) {
+								waypoints[waypoint_index].visible_callback(matching_elements[matching_element_index]);
+							}
+
 						}
 
 					}
@@ -73,13 +100,17 @@ window.Arrive = ((function () {
 	/**
 	 * Register a selector to be monitored for changes in visibility
 	 * @param {string} selector
+	 * @param {function} visible_callback
+	 * @param {function} no_longer_visible_callback
 	 * @public
 	 * @example
 	 * Arrive.register_selector('#footer');
 	 */
-	fn.register_selector = function (selector) {
+	fn.register_selector = function (selector, visible_callback, no_longer_visible_callback) {
 		waypoints.push({
-			'selector': selector
+			'selector'                  : selector,
+			'visible_callback'          : visible_callback,
+			'no_longer_visible_callback': no_longer_visible_callback
 		});
 	};
 

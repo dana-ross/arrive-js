@@ -2,6 +2,7 @@ describe('waypoint-once', function () {
 
 	beforeEach(function (done) {
 
+		Arrive.reset();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
@@ -27,6 +28,7 @@ describe('waypoint-visible', function () {
 
 	beforeEach(function (done) {
 
+		Arrive.reset();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
@@ -51,6 +53,7 @@ describe('no longer visible', function () {
 
 	beforeEach(function (done) {
 
+		Arrive.reset();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
@@ -80,5 +83,61 @@ describe('no longer visible', function () {
 	it('element below the viewport never had waypoint-visible class', function () {
 		expect(document.querySelector('#paragraph_40').className.split(/\s+/)).not.toContain('waypoint-visible');
 	});
+
+});
+
+describe('callbacks', function () {
+
+	var visible_callback_called,
+		no_longer_visible_callback_called;
+
+	beforeEach(function (done) {
+
+		visible_callback_called = {'20': false, '40': false};
+		no_longer_visible_callback_called = {'20': false, '40': false};
+
+		Arrive.reset();
+		Arrive.register_selector('#paragraph_20', function () {
+			visible_callback_called['20'] = true;
+		}, function () {
+			no_longer_visible_callback_called['20'] = true;
+		});
+		Arrive.register_selector('#paragraph_40', function () {
+			visible_callback_called['40'] = true;
+		}, function () {
+			no_longer_visible_callback_called['40'] = true;
+		});
+
+		window.location.hash = 'paragraph_20';
+
+		// Give arrive a chance to run
+		setTimeout(function () {
+
+			window.location.hash = 'paragraph_1';
+
+			// Give arrive a chance to run again
+			setTimeout(function () {
+				done();
+			}, 1000);
+
+		}, 1000);
+
+	});
+
+	it('called the visible callback for paragraph 20', function () {
+		expect(visible_callback_called['20']).toBe(true);
+	});
+
+	it('called the no-longer-visible callback for paragraph 20', function () {
+		expect(no_longer_visible_callback_called['20']).toBe(true);
+	});
+
+	it('never called the visible callback for paragraph 40', function () {
+		expect(visible_callback_called['40']).toBe(false);
+	});
+
+	it('never called the no-longer-visible callback for paragraph 40', function () {
+		expect(no_longer_visible_callback_called['40']).toBe(false);
+	})
 
 });
