@@ -102,16 +102,29 @@ window.Arrive = ((function () {
 	 * @param {string} selector
 	 * @param {function} visible_callback
 	 * @param {function} no_longer_visible_callback
+	 * @return object waypoint promise
 	 * @public
 	 * @example
 	 * Arrive.register_selector('#footer');
 	 */
 	fn.register_selector = function (selector, visible_callback, no_longer_visible_callback) {
-		waypoints.push({
-			'selector'                  : selector,
-			'visible_callback'          : visible_callback,
-			'no_longer_visible_callback': no_longer_visible_callback
-		});
+
+		var waypoint = {
+			'selector': selector
+		};
+
+		if ('undefined' !== typeof visible_callback) {
+			waypoint.visible_callback = visible_callback;
+		}
+
+		if ('undefined' !== typeof no_longer_visible_callback) {
+			waypoint.no_longer_visible_callback = no_longer_visible_callback;
+		}
+
+		waypoints.push(waypoint);
+
+		return waypoint;
+
 	};
 
 	return fn;

@@ -141,3 +141,50 @@ describe('callbacks', function () {
 	})
 
 });
+
+describe('callback promises', function () {
+
+	var visible_callback_called,
+		no_longer_visible_callback_called;
+
+	beforeEach(function (done) {
+
+		visible_callback_called = {'20': false};
+		no_longer_visible_callback_called = {'20': false};
+
+		Arrive.reset();
+		var promise = Arrive.register_selector('#paragraph_20');
+
+		promise.visible_callback = function () {
+			visible_callback_called['20'] = true;
+		};
+
+		promise.no_longer_visible_callback = function () {
+			no_longer_visible_callback_called['20'] = true;
+		};
+
+		window.location.hash = 'paragraph_20';
+
+		// Give arrive a chance to run
+		setTimeout(function () {
+
+			window.location.hash = 'paragraph_1';
+
+			// Give arrive a chance to run again
+			setTimeout(function () {
+				done();
+			}, 1000);
+
+		}, 1000);
+
+	});
+
+	it('called the visible callback for paragraph 20', function () {
+		expect(visible_callback_called['20']).toBe(true);
+	});
+
+	it('called the no-longer-visible callback for paragraph 20', function () {
+		expect(no_longer_visible_callback_called['20']).toBe(true);
+	});
+
+});
