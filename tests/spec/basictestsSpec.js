@@ -2,8 +2,8 @@ describe('waypoint-once', function () {
 
 	beforeEach(function (done) {
 
-		JSWaypoints.register_selector('#paragraph_20');
-		JSWaypoints.register_selector('#paragraph_40');
+		Arrive.register_selector('#paragraph_20');
+		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
 
 		setTimeout(function () {
@@ -27,8 +27,8 @@ describe('waypoint-visible', function () {
 
 	beforeEach(function (done) {
 
-		JSWaypoints.register_selector('#paragraph_20');
-		JSWaypoints.register_selector('#paragraph_40');
+		Arrive.register_selector('#paragraph_20');
+		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
 
 		setTimeout(function () {
@@ -51,8 +51,8 @@ describe('no longer visible', function () {
 
 	beforeEach(function (done) {
 
-		JSWaypoints.register_selector('#paragraph_20');
-		JSWaypoints.register_selector('#paragraph_40');
+		Arrive.register_selector('#paragraph_20');
+		Arrive.register_selector('#paragraph_40');
 		window.location.hash = 'paragraph_20';
 
 		// Give arrive a chance to run

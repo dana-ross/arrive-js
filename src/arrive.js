@@ -3,7 +3,7 @@
  * @author Dave Ross <dave@davidmichaelross.com>
  * @license http://daveross.mit-license.org MIT
  */
-window.JSWaypoints = ((function () {
+window.Arrive = ((function () {
 
 	"use strict";
 
@@ -75,7 +75,7 @@ window.JSWaypoints = ((function () {
 	 * @param {string} selector
 	 * @public
 	 * @example
-	 * JSWaypoints.register_selector('#footer');
+	 * Arrive.register_selector('#footer');
 	 */
 	fn.register_selector = function (selector) {
 		waypoints.push({
