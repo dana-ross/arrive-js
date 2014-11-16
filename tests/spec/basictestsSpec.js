@@ -13,7 +13,6 @@ describe('waypoint-once', function () {
 	});
 
 	it('added to element when it becomes visible', function () {
-		console.log(document.querySelector('#paragraph_20').className.split(/\s+/));
 		expect(document.querySelector('#paragraph_20').className.split(/\s+/)).toContain('waypoint-once');
 	});
 
@@ -39,7 +38,6 @@ describe('waypoint-visible', function () {
 	});
 
 	it('added to element when it becomes visible', function () {
-		console.log(document.querySelector('#paragraph_20').className.split(/\s+/));
 		expect(document.querySelector('#paragraph_20').className.split(/\s+/)).toContain('waypoint-visible');
 	});
 
