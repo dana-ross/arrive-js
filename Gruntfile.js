@@ -77,7 +77,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.loadNpmTasks('grunt-release');
 
-	grunt.registerTask('travis', ['jshint', 'jasmine']);
+	grunt.registerTask('travis', ['jshint', 'concat', 'jasmine']);
 	grunt.registerTask('docs', ['jsdoc']);
 	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'jasmine', 'jsdoc']);
 
