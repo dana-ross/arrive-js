@@ -212,3 +212,44 @@ describe('register element', function () {
 	});
 
 });
+
+describe('exceptions', function () {
+
+	beforeEach(function (done) {
+
+		Arrive.reset();
+		done();
+
+	});
+
+	it('throws an exception when not passed a string', function () {
+
+		var exception_received = false;
+
+		try {
+			Arrive.register_selector(document.getElementById('paragraph_30'));
+		}
+		catch (e) {
+			exception_received = true;
+		}
+
+		expect(exception_received).toBe(true);
+
+	});
+
+	it('throws an exception when not passed an element', function () {
+
+		var exception_received = false;
+
+		try {
+			Arrive.register_element('this is a string');
+		}
+		catch (e) {
+			exception_received = true;
+		}
+
+		expect(exception_received).toBe(true);
+
+	});
+
+})

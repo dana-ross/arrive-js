@@ -201,10 +201,16 @@ window.Arrive = ((function () {
 	 * @memberof Arrive
 	 * @alias register_selector
 	 * @public
+	 * @throws {string} 'selector must be a string'
 	 * @example
 	 * var promise = Arrive.register_selector('#footer');
 	 */
 	fn.register_selector = function (selector, visible_callback, no_longer_visible_callback) {
+
+		if ('string' !== typeof selector) {
+			throw 'selector must be a string';
+		}
+
 		return this.register(selector, visible_callback, no_longer_visible_callback);
 	};
 
@@ -216,6 +222,7 @@ window.Arrive = ((function () {
 	 * @return {object} waypoint promise; set visible_callback and/or no_longer_visible_callback
 	 * @memberof Arrive
 	 * @alias register_element
+	 * @throws {string} 'element is not a DOM Element object'
 	 * @public
 	 * @example
 	 * var promise = Arrive.register_element(document.getElementById('#footer'));
