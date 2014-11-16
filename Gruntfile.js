@@ -45,14 +45,14 @@ module.exports = function (grunt) {
 			},
 			default: {
 				files: {
-					'dist/arrive.min.js': ['src/arrive.js', 'src/requestanimationframe-polyfill.js']
+					'dist/arrive.min.js': ['src/arrive.js', 'src/requestanimationframe-polyfill.js', 'src/queryselector-polyfill.js']
 				}
 			}
 		},
 
 		concat: {
 			default: {
-				src: ['src/arrive.js', 'src/requestanimationframe-polyfill.js'],
+				src: ['src/arrive.js', 'src/requestanimationframe-polyfill.js', 'src/queryselector-polyfill.js'],
 				dest: 'dist/arrive.js'
 			}
 		},
@@ -79,6 +79,6 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('travis', ['jshint', 'jasmine']);
 	grunt.registerTask('docs', ['jsdoc']);
-	grunt.registerTask('default', ['jshint', 'jasmine', 'jsdoc', 'uglify', 'concat']);
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'jasmine', 'jsdoc']);
 
 };
