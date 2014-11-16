@@ -197,7 +197,7 @@ window.Arrive = ((function () {
 	 * @param {string} selector query selector to monitor for changes in visibility
 	 * @param {function} [visible_callback] function to call when an element matching selector becomes visible
 	 * @param {function} [no_longer_visible_callback] function to call when an element matching selector is no longer visible
-	 * @return {object} waypoint promise; set visible_callback and/or no_longer_visible_callback
+	 * @return {{target: *}} waypoint promise; set visible_callback and/or no_longer_visible_callback
 	 * @memberof Arrive
 	 * @alias register_selector
 	 * @public
@@ -211,7 +211,7 @@ window.Arrive = ((function () {
 			throw 'selector must be a string';
 		}
 
-		return this.register(selector, visible_callback, no_longer_visible_callback);
+		return this._register(selector, visible_callback, no_longer_visible_callback);
 	};
 
 	/**
@@ -219,7 +219,7 @@ window.Arrive = ((function () {
 	 * @param {string} element element to monitor for changes in visibility
 	 * @param {function} [visible_callback] function to call when the element becomes visible
 	 * @param {function} [no_longer_visible_callback] function to call when the element is no longer visible
-	 * @return {object} waypoint promise; set visible_callback and/or no_longer_visible_callback
+	 * @return {{target: *}} waypoint promise; set visible_callback and/or no_longer_visible_callback
 	 * @memberof Arrive
 	 * @alias register_element
 	 * @throws {string} 'element is not a DOM Element object'
@@ -233,11 +233,19 @@ window.Arrive = ((function () {
 			throw 'element is not a DOM Element object';
 		}
 
-		return this.register(element, visible_callback, no_longer_visible_callback);
+		return this._register(element, visible_callback, no_longer_visible_callback);
 
 	};
 
-	fn.register = function (target, visible_callback, no_longer_visible_callback) {
+	/**
+	 * Register a waypoint
+	 * @param target
+	 * @param {function} visible_callback
+	 * @param {function} no_longer_visible_callback
+	 * @returns {{target: *}}
+	 * @private
+	 */
+	fn._register = function (target, visible_callback, no_longer_visible_callback) {
 
 		var waypoint = {
 			'target': target
@@ -254,7 +262,6 @@ window.Arrive = ((function () {
 		waypoints.push(waypoint);
 
 		return waypoint;
-
 
 	};
 
