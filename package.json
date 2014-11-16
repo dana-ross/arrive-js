@@ -1,6 +1,5 @@
 {
-  "name": "jsdevenv",
-  "version": "0.1.0",
+	"name": "arrive-js",
   "repository": {
     "type": "git",
     "url": "https://github.com/daveross/arrive-js"
