@@ -57,6 +57,15 @@ Callbacks can be passed as the second and third parameters to `Arrive.register_s
 	};
 ```
 
+## Contributing
+
+### Grunt commands
+|Command|Description|
+|:------|:----------|
+|`grunt travis`| Runs tests essential for continuous integration|
+|`grunt docs`| Just regenerates JSDoc documentation|
+|`grunt default`| Build process for testing and creating a new release|
+
 ## Release History
 
  * 2014-11-16   v0.0.1   Initial release
