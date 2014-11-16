@@ -55,6 +55,15 @@ module.exports = function (grunt) {
 				src: ['src/arrive.js', 'src/requestanimationframe-polyfill.js'],
 				dest: 'dist/arrive.js'
 			}
+		},
+
+		release: {
+			options: {
+				indentation: '\t',
+				github     : {
+					'repo': 'daveross/arrive-js'
+				}
+			}
 		}
 
 	});
@@ -64,6 +73,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-release');
+
 	grunt.registerTask('travis', ['jshint', 'jasmine']);
 	grunt.registerTask('docs', ['jsdoc']);
 	grunt.registerTask('default', ['jshint', 'jasmine', 'jsdoc', 'uglify', 'concat']);
