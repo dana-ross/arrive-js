@@ -36,15 +36,36 @@ module.exports = function (grunt) {
 					destination: 'doc'
 				}
 			}
+		},
+
+		uglify: {
+			options: {
+				sourceMap              : true,
+				sourceMapIncludeSources: true
+			},
+			default: {
+				files: {
+					'dist/arrive.min.js': ['src/arrive.js']
+				}
+			}
+		},
+
+		concat: {
+			default: {
+				src : ['src/arrive.js'],
+				dest: 'dist/arrive.js'
+			}
 		}
 
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.registerTask('travis', ['jshint', 'jasmine']);
 	grunt.registerTask('docs', ['jsdoc']);
-	grunt.registerTask('default', ['jshint', 'jasmine', 'jsdoc']);
+	grunt.registerTask('default', ['jshint', 'jasmine', 'jsdoc', 'uglify', 'concat']);
 
 };
