@@ -22,6 +22,7 @@ module.exports = function (grunt) {
 				],
 				options: {
 					specs     : 'tests/spec/*Spec.js',
+					template: "_SpecRunner.html",
 					keepRunner: true,
 					//helpers: 'test/spec/*.js'
 				}
