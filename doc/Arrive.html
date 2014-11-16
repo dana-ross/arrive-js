@@ -96,7 +96,9 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="register_selector"><span class="type-signature">&lt;static> </span>register_selector<span class="signature">(selector, <span class="optional">visible_callback</span>, <span class="optional">no_longer_visible_callback</span>)</span><span class="type-signature"></span></h4>
+<h4 class="name" id="register_element">
+	<span class="type-signature">&lt;static> </span>register_element<span class="signature">(element, <span class="optional">visible_callback</span>, <span class="optional">no_longer_visible_callback</span>)</span><span class="type-signature"> &rarr; {object}</span>
+</h4>
     
     
 </dt>
@@ -104,6 +106,194 @@
     
     
     <div class="description">
+		Register a signle element to be monitored for changes in visibility
+	</div>
+
+
+	<h5>Parameters:</h5>
+
+
+	<table class="params">
+		<thead>
+		<tr>
+
+			<th>Name</th>
+
+
+			<th>Type</th>
+
+
+			<th>Argument</th>
+
+
+			<th class="last">Description</th>
+		</tr>
+		</thead>
+
+		<tbody>
+
+
+		<tr>
+
+			<td class="name"><code>element</code></td>
+
+
+			<td class="type">
+
+
+				<span class="param-type">string</span>
+
+
+			</td>
+
+
+			<td class="attributes">
+
+
+			</td>
+
+
+			<td class="description last">element to monitor for changes in visibility</td>
+		</tr>
+
+
+		<tr>
+
+			<td class="name"><code>visible_callback</code></td>
+
+
+			<td class="type">
+
+
+				<span class="param-type">function</span>
+
+
+			</td>
+
+
+			<td class="attributes">
+
+				&lt;optional><br>
+
+
+			</td>
+
+
+			<td class="description last">function to call when the element becomes visible</td>
+		</tr>
+
+
+		<tr>
+
+			<td class="name"><code>no_longer_visible_callback</code></td>
+
+
+			<td class="type">
+
+
+				<span class="param-type">function</span>
+
+
+			</td>
+
+
+			<td class="attributes">
+
+				&lt;optional><br>
+
+
+			</td>
+
+
+			<td class="description last">function to call when the element is no longer visible</td>
+		</tr>
+
+
+		</tbody>
+	</table>
+
+
+	<dl class="details">
+
+
+		<dt class="tag-source">Source:</dt>
+		<dd class="tag-source">
+			<ul class="dummy">
+				<li>
+					<a href="arrive.js.html">arrive.js</a>, <a href="arrive.js.html#line230">line 230</a>
+				</li>
+			</ul>
+		</dd>
+
+
+	</dl>
+
+
+	<h5>Throws:</h5>
+
+
+	<dl>
+		<dt>
+		<div class="param-desc">
+			'element is not a DOM Element object'
+		</div>
+</dt>
+<dt>
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+
+		<span class="param-type">string</span>
+
+
+	</dd>
+</dl>
+</dt>
+		</dl>
+
+
+	<h5>Returns:</h5>
+
+
+	<div class="param-desc">
+		waypoint promise; set visible_callback and/or no_longer_visible_callback
+	</div>
+
+
+	<dl>
+		<dt>
+			Type
+		</dt>
+		<dd>
+
+			<span class="param-type">object</span>
+
+
+		</dd>
+	</dl>
+
+
+	<h5>Example</h5>
+
+	<pre class="prettyprint"><code>var promise = Arrive.register_element(document.getElementById('#footer'));</code></pre>
+
+
+	</dd>
+
+
+	<dt>
+	<h4 class="name" id="register_selector">
+		<span class="type-signature">&lt;static> </span>register_selector<span class="signature">(selector, <span class="optional">visible_callback</span>, <span class="optional">no_longer_visible_callback</span>)</span><span class="type-signature"> &rarr; {object}</span>
+	</h4>
+
+
+	</dt>
+	<dd>
+
+
+		<div class="description">
         Register a selector to be monitored for changes in visibility
     </div>
     
@@ -261,7 +451,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arrive.js.html">arrive.js</a>, <a href="arrive.js.html#line124">line 124</a>
+		<a href="arrive.js.html">arrive.js</a>, <a href="arrive.js.html#line208">line 208</a>
     </li></ul></dd>
     
     
@@ -272,29 +462,54 @@
     
 </dl>
 
-    
-    
 
-    
+		<h5>Throws:</h5>
 
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
+
+		<dl>
+			<dt>
+			<div class="param-desc">
+				'selector must be a string'
+			</div>
+	</dt>
+	<dt>
+	<dl>
+		<dt>
+			Type
+		</dt>
+		<dd>
+
+			<span class="param-type">string</span>
+
+
+		</dd>
+	</dl>
+	</dt>
+	</dl>
+
+
+	<h5>Returns:</h5>
     
             
 <div class="param-desc">
-    object waypoint promise; set visible_callback and/or no_longer_visible_callback
+	waypoint promise; set visible_callback and/or no_longer_visible_callback
 </div>
 
 
+	<dl>
+		<dt>
+			Type
+		</dt>
+		<dd>
 
-        
-    
-    
-        <h5>Example</h5>
+			<span class="param-type">object</span>
+
+
+		</dd>
+	</dl>
+
+
+	<h5>Example</h5>
         
     <pre class="prettyprint"><code>var promise = Arrive.register_selector('#footer');</code></pre>
 
@@ -346,7 +561,7 @@ Note: does not remove classes from DOM elements
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arrive.js.html">arrive.js</a>, <a href="arrive.js.html#line28">line 28</a>
+		<a href="arrive.js.html">arrive.js</a>, <a href="arrive.js.html#line39">line 39</a>
     </li></ul></dd>
     
     
@@ -399,7 +614,7 @@ Note: does not remove classes from DOM elements
 
 <footer>
 	Documentation generated by
-	<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 16 2014 01:13:36 GMT-0500 (EST)
+	<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 16 2014 10:06:38 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

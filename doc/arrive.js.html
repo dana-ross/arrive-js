@@ -44,6 +44,17 @@ window.Arrive = ((function () {
 		debouncing = false;
 
 	/**
+			* Infer if a given target is a DOM Element
+			* @private
+			* @param target
+			* @returns {boolean} true if target looks like a DOM element type
+			*/
+			function is_dom_element(target) {
+			return 'object' === typeof target && "nodeType" in target &&
+			target.nodeType === 1;
+			}
+
+			/**
 	 * Reset all waypoint assignments
 	 * Note: does not remove classes from DOM elements
 	 * @memberof Arrive
@@ -63,52 +74,126 @@ window.Arrive = ((function () {
 	 */
 	function evaluate_waypoints() {
 
-		var viewport_height = window.innerHeight || document.documentElement.clientHeight,
-			waypoint_index, matching_element_index, matching_elements,
-			element_offset;
+			var waypoint_index;
 
 		for (waypoint_index in waypoints) {
 
 			if (waypoints.hasOwnProperty(waypoint_index)) {
 
-				matching_elements = document.querySelectorAll(waypoints[waypoint_index].selector);
-				for (matching_element_index = 0; matching_element_index &lt; matching_elements.length; matching_element_index += 1) {
+			if (is_dom_element(waypoints[waypoint_index].target)) {
 
-					element_offset = matching_elements[matching_element_index].getBoundingClientRect();
+			// Target is a DOM element
+			_process_element(waypoints[waypoint_index]);
 
-					if (element_offset.bottom &lt; 0 || element_offset.top > viewport_height) {
+			}
+			else {
 
-						// Element is no longer visible
-						if (0 &lt;= matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+			// Target is a CSS selector
+			_process_selector(waypoints[waypoint_index]);
 
-							matching_elements[matching_element_index].className = matching_elements[matching_element_index].className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+			}
 
-							// Call the waypoint's no_longer_visible_callback if defined
-							if ('function' === typeof waypoints[waypoint_index].no_longer_visible_callback) {
-								waypoints[waypoint_index].no_longer_visible_callback(matching_elements[matching_element_index]);
-							}
+			}
 
-						}
+			}
 
+			debouncing = false;
+
+			}
+
+			/**
+			* @private
+			* @param waypoint
+			*/
+			function _process_element(waypoint) {
+
+			var viewport_height = window.innerHeight || document.documentElement.clientHeight,
+			waypoint_index, element_offset;
+
+			// Target is a single element
+			element_offset = waypoint.target.getBoundingClientRect();
+
+			if (element_offset.bottom &lt; 0 || element_offset.top > viewport_height) {
+
+			// Element is no longer visible
+			if (0 &lt;= waypoint.target.className.indexOf('waypoint-visible')) {
+
+			waypoint.target.className = waypoint.target.className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+
+			// Call the waypoint's no_longer_visible_callback if defined
+			if ('function' === typeof waypoint.no_longer_visible_callback) {
+			waypoint.no_longer_visible_callback(waypoint.target);
+			}
+
+			}
+
+			}
+			else {
+
+			// Element is visible
+			if (0 > waypoint.target.className.indexOf('waypoint-once')) {
+			waypoint.target.className += ' waypoint-once';
+			}
+
+			if (0 > waypoint.target.className.indexOf('waypoint-visible')) {
+
+			waypoint.target.className += ' waypoint-visible';
+
+			// Call the waypoint's visible_callback if defined
+			if ('function' === typeof waypoint.visible_callback) {
+			waypoint.visible_callback(waypoint.target);
+			}
+
+			}
+
+			}
+
+			}
+
+			/**
+			* @private
+			* @param waypoint
+			*/
+			function _process_selector(waypoint) {
+
+			var viewport_height = window.innerHeight || document.documentElement.clientHeight,
+			matching_element_index, matching_elements,
+			element_offset;
+
+			matching_elements = document.querySelectorAll(waypoint.target);
+			for (matching_element_index = 0; matching_element_index &lt; matching_elements.length; matching_element_index += 1) {
+
+			element_offset = matching_elements[matching_element_index].getBoundingClientRect();
+
+			if (element_offset.bottom &lt; 0 || element_offset.top > viewport_height) {
+
+			// Element is no longer visible
+			if (0 &lt;= matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+
+			matching_elements[matching_element_index].className = matching_elements[matching_element_index].className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+
+			// Call the waypoint's no_longer_visible_callback if defined
+			if ('function' === typeof waypoint.no_longer_visible_callback) {
+			waypoint.no_longer_visible_callback(matching_elements[matching_element_index]);
 					}
-					else {
 
-						// Element is visible
-						if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-once')) {
-							matching_elements[matching_element_index].className += ' waypoint-once';
-						}
+			}
 
-						if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+			}
+			else {
 
-							matching_elements[matching_element_index].className += ' waypoint-visible';
+			// Element is visible
+			if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-once')) {
+			matching_elements[matching_element_index].className += ' waypoint-once';
+			}
 
-							// Call the waypoint's visible_callback if defined
-							if ('function' === typeof waypoints[waypoint_index].visible_callback) {
-								waypoints[waypoint_index].visible_callback(matching_elements[matching_element_index]);
-							}
+			if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
 
-						}
+			matching_elements[matching_element_index].className += ' waypoint-visible';
 
+			// Call the waypoint's visible_callback if defined
+			if ('function' === typeof waypoint.visible_callback) {
+			waypoint.visible_callback(matching_elements[matching_element_index]);
 					}
 
 				}
@@ -116,8 +201,6 @@ window.Arrive = ((function () {
 			}
 
 		}
-
-		debouncing = false;
 
 	}
 
@@ -141,17 +224,50 @@ window.Arrive = ((function () {
 	 * @param {string} selector query selector to monitor for changes in visibility
 	 * @param {function} [visible_callback] function to call when an element matching selector becomes visible
 	 * @param {function} [no_longer_visible_callback] function to call when an element matching selector is no longer visible
-	 * @return object waypoint promise; set visible_callback and/or no_longer_visible_callback
+			* @return {object} waypoint promise; set visible_callback and/or no_longer_visible_callback
 	 * @memberof Arrive
 	 * @alias register_selector
 	 * @public
+			* @throws {string} 'selector must be a string'
 	 * @example
 	 * var promise = Arrive.register_selector('#footer');
 	 */
 	fn.register_selector = function (selector, visible_callback, no_longer_visible_callback) {
 
+			if('string' !== typeof selector) {
+			throw 'selector must be a string';
+			}
+
+			return this.register(selector, visible_callback, no_longer_visible_callback);
+			};
+
+			/**
+			* Register a signle element to be monitored for changes in visibility
+			* @param {string} element element to monitor for changes in visibility
+			* @param {function} [visible_callback] function to call when the element becomes visible
+			* @param {function} [no_longer_visible_callback] function to call when the element is no longer visible
+			* @return {object} waypoint promise; set visible_callback and/or no_longer_visible_callback
+			* @memberof Arrive
+			* @alias register_element
+			* @throws {string} 'element is not a DOM Element object'
+			* @public
+			* @example
+			* var promise = Arrive.register_element(document.getElementById('#footer'));
+			*/
+			fn.register_element = function (element, visible_callback, no_longer_visible_callback) {
+
+			if(!is_dom_element(element)) {
+			throw 'element is not a DOM Element object';
+			}
+
+			return this.register(element, visible_callback, no_longer_visible_callback);
+
+			};
+
+			fn.register = function (target, visible_callback, no_longer_visible_callback) {
+
 		var waypoint = {
-			'selector': selector
+			'target': target
 		};
 
 		if ('undefined' !== typeof visible_callback) {
@@ -165,6 +281,7 @@ window.Arrive = ((function () {
 		waypoints.push(waypoint);
 
 		return waypoint;
+
 
 	};
 
@@ -187,7 +304,7 @@ window.Arrive = ((function () {
 
 <footer>
 	Documentation generated by
-	<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 16 2014 01:13:36 GMT-0500 (EST)
+	<a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Nov 16 2014 10:06:37 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -188,3 +188,27 @@ describe('callback promises', function () {
 	});
 
 });
+
+describe('register element', function () {
+
+	beforeEach(function (done) {
+
+		Arrive.reset();
+		Arrive.register_element(document.querySelector('#paragraph_20'));
+		window.location.hash = 'paragraph_20';
+
+		setTimeout(function () {
+			done();
+		}, 1000);
+
+	});
+
+	it('added to element when it becomes visible', function () {
+		expect(document.querySelector('#paragraph_20').className.split(/\s+/)).toContain('waypoint-once');
+	});
+
+	it('element below the viewport does not get waypoint-once class', function () {
+		expect(document.querySelector('#paragraph_40').className.split(/\s+/)).not.toContain('waypoint-once');
+	});
+
+});
