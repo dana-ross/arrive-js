@@ -1,7 +1,12 @@
 /**
- * Arrive.js: jQuery-less waypoints
+ * @file Arrive.js: jQuery-less waypoints
  * @author Dave Ross <dave@davidmichaelross.com>
  * @license http://daveross.mit-license.org MIT
+ * @version 0.0.0
+ */
+
+/**
+ * @namespace Arrive
  */
 window.Arrive = ((function () {
 
@@ -14,6 +19,9 @@ window.Arrive = ((function () {
 	/**
 	 * Reset all waypoint assignments
 	 * Note: does not remove classes from DOM elements
+	 * @memberof Arrive
+	 * @alias reset
+	 * @public
 	 * @example
 	 * Arrive.reset();
 	 */
@@ -22,6 +30,10 @@ window.Arrive = ((function () {
 		// @TODO remove classes from DOM elements?
 	};
 
+	/**
+	 * onScroll handler that evaluates waypoints which might need updating
+	 * @private
+	 */
 	function evaluate_waypoints() {
 
 		var viewport_height = window.innerHeight || document.documentElement.clientHeight,
@@ -99,13 +111,15 @@ window.Arrive = ((function () {
 
 	/**
 	 * Register a selector to be monitored for changes in visibility
-	 * @param {string} selector
-	 * @param {function} visible_callback
-	 * @param {function} no_longer_visible_callback
-	 * @return object waypoint promise
+	 * @param {string} selector query selector to monitor for changes in visibility
+	 * @param {function} [visible_callback] function to call when an element matching selector becomes visible
+	 * @param {function} [no_longer_visible_callback] function to call when an element matching selector is no longer visible
+	 * @return object waypoint promise; set visible_callback and/or no_longer_visible_callback
+	 * @memberof Arrive
+	 * @alias register_selector
 	 * @public
 	 * @example
-	 * Arrive.register_selector('#footer');
+	 * var promise = Arrive.register_selector('#footer');
 	 */
 	fn.register_selector = function (selector, visible_callback, no_longer_visible_callback) {
 

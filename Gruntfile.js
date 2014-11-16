@@ -27,12 +27,24 @@ module.exports = function (grunt) {
 					//helpers: 'test/spec/*.js'
 				}
 			}
+		},
+
+		jsdoc: {
+			dist: {
+				src    : ['src/*.js'],
+				options: {
+					destination: 'doc'
+				}
+			}
 		}
 
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.registerTask('travis', ['jshint', 'jasmine']);
+	grunt.registerTask('docs', ['jsdoc']);
+	grunt.registerTask('default', ['jshint', 'jasmine', 'jsdoc']);
 
 };
