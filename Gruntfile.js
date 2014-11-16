@@ -60,6 +60,7 @@ module.exports = function (grunt) {
 		release: {
 			options: {
 				indentation: '\t',
+				npm: false,
 				github     : {
 					'repo': 'daveross/arrive-js'
 				}
