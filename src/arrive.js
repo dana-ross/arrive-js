@@ -2,7 +2,7 @@
  * @file Arrive.js: jQuery-less waypoints
  * @author Dave Ross <dave@davidmichaelross.com>
  * @license http://daveross.mit-license.org MIT
- * @version 0.0.0
+ * @version 0.2.0
  */
 
 /**
