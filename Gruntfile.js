@@ -45,14 +45,14 @@ module.exports = function (grunt) {
 			},
 			default: {
 				files: {
-					'dist/arrive.min.js': ['src/arrive.js']
+					'dist/arrive.min.js': ['src/arrive.js', 'src/requestanimationframe-polyfill.js']
 				}
 			}
 		},
 
 		concat: {
 			default: {
-				src : ['src/arrive.js'],
+				src: ['src/arrive.js', 'src/requestanimationframe-polyfill.js'],
 				dest: 'dist/arrive.js'
 			}
 		}
