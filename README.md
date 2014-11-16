@@ -20,6 +20,7 @@ When an element matching one of the registered selectors enters the viewport, Ar
 Callbacks can be passed as the second and third parameters to `Arrive.register_selector()`.
 
 | Pos | Name                       | Required | Type     | Description |
+|:----:|:--------------------------|:---------|:---------|:-------------|
 | 0   | selector                   | Required | string   | CSS selector |
 | 1   | visible_callback           | Optional | function | Called when a matching element enters the viewport |
 | 2   | no_longer_visible_callback | Optional | function | Called when a matching element is no longer in the viewport |
