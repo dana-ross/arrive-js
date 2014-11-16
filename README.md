@@ -15,6 +15,8 @@ When an element matching one of the registered selectors enters the viewport, Ar
 | waypoint-visible | The element is current in the browser's viewport. *This class is removed when the element leaves the viewport.*|
 | waypoint-once | The element entered the browser's viewport at one time. *This class is never removed.*|
 
+*NOTE: This behavior is likely to change. Adding CSS classes may be implemented as a pre-defined callback you can pass to `register_selector()` in future releases.*
+
 ### Passing callbacks at registration time
 
 Callbacks can be passed as the second and third parameters to `Arrive.register_selector()`.
