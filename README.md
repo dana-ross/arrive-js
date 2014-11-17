@@ -91,5 +91,5 @@ Callbacks can be also passed to `Arrive.register_selector()`.
 
 ## Release History
 
- * 2014-11-16   v0.0.2   Added querySelector polyfill
- * 2014-11-16   v0.0.1   Initial release
+ * 2014-11-16   v0.2.0   Added querySelector polyfill
+ * 2014-11-16   v0.1.0   Initial release
