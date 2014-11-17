@@ -6,6 +6,8 @@
 
 [MIT](http://daveross.mit-license.org)
 
+See [why I contribute to open source software](https://davidmichaelross.com/blog/contribute-open-source-software/).
+
 ## Getting Started
 
 The `dist` directory contains concatenated & minified files ready for use in your project. There are no additional dependencies you need to install unless you want to [contribute to the project](#contributing) itself.
