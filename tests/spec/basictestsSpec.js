@@ -131,7 +131,7 @@ window.addEventListener('DOMContentLoaded', function () {
 				no_longer_visible_callback_called['40'] = true;
 			});
 
-			window.location.hash = 'fixture4_paragraph_19';
+			window.location.hash = 'fixture4_paragraph_20';
 
 			// Give arrive a chance to run
 			setTimeout(function () {
