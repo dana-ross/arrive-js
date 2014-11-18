@@ -1,11 +1,35 @@
+function setUpHTMLFixture() {
+
+	// Destroy the existing fixture if there is one
+	if (document.getElementById('fixture')) {
+		document.body.removeChild(document.getElementById('fixture'));
+	}
+
+	// Create a new fixture div
+	var div = document.createElement('div');
+	div.id = 'fixture';
+	document.body.appendChild(div);
+
+	// Populate the fixture div with a large number of lorem ipsum paragraphs
+	for (var paragraph_count = 1; paragraph_count <= 50; paragraph_count += 1) {
+		var paragraph = document.createElement('p');
+		paragraph.id = 'paragraph_' + paragraph_count;
+		paragraph.innerText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam porta mauris est, eget egestas elit luctus sed. Aliquam sagittis risus eget dui laoreet, id placerat augue tincidunt. Cras elementum purus a pellentesque molestie. Integer sagittis dictum feugiat. Aliquam a lacinia nibh. Cras eu nunc at lacus rutrum viverra sit amet vitae dolor. Vivamus a vehicula diam. Mauris nec enim purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin placerat, velit eget aliquet commodo, est orci dictum lectus, vitae mattis nisi nisi nec purus. Quisque blandit sem at ligula convallis, quis ornare nulla molestie. Donec molestie nulla in mattis interdum. Morbi in tempus ex. Donec pretium aliquet magna, sit amet malesuada turpis dictum sed.';
+		document.getElementById('fixture').appendChild(paragraph);
+	}
+
+}
+
 describe('waypoint-once', function () {
 
 	beforeEach(function (done) {
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		setTimeout(function () {
 			done();
@@ -28,10 +52,12 @@ describe('waypoint-visible', function () {
 
 	beforeEach(function (done) {
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		setTimeout(function () {
 			done();
@@ -53,10 +79,12 @@ describe('no longer visible', function () {
 
 	beforeEach(function (done) {
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		Arrive.register_selector('#paragraph_20');
 		Arrive.register_selector('#paragraph_40');
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		// Give arrive a chance to run
 		setTimeout(function () {
@@ -96,7 +124,9 @@ describe('callbacks', function () {
 		visible_callback_called = {'20': false, '40': false};
 		no_longer_visible_callback_called = {'20': false, '40': false};
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		Arrive.register_selector('#paragraph_20', function () {
 			visible_callback_called['20'] = true;
 		}, function () {
@@ -108,7 +138,7 @@ describe('callbacks', function () {
 			no_longer_visible_callback_called['40'] = true;
 		});
 
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		// Give arrive a chance to run
 		setTimeout(function () {
@@ -152,7 +182,9 @@ describe('callback promises', function () {
 		visible_callback_called = {'20': false};
 		no_longer_visible_callback_called = {'20': false};
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		var promise = Arrive.register_selector('#paragraph_20');
 
 		promise.visible_callback = function () {
@@ -163,7 +195,7 @@ describe('callback promises', function () {
 			no_longer_visible_callback_called['20'] = true;
 		};
 
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		// Give arrive a chance to run
 		setTimeout(function () {
@@ -193,9 +225,11 @@ describe('register element', function () {
 
 	beforeEach(function (done) {
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		Arrive.register_element(document.querySelector('#paragraph_20'));
-		window.location.hash = 'paragraph_20';
+		window.location.hash = 'paragraph_19';
 
 		setTimeout(function () {
 			done();
@@ -217,7 +251,9 @@ describe('exceptions', function () {
 
 	beforeEach(function (done) {
 
+		window.location.hash = 'paragraph_1';
 		Arrive.reset();
+		setUpHTMLFixture();
 		done();
 
 	});
