@@ -38,7 +38,6 @@ window.Arrive = ((function () {
 	 */
 	fn.reset = function () {
 		waypoints = [];
-		// @TODO remove classes from DOM elements?
 	};
 
 	/**
@@ -89,9 +88,11 @@ window.Arrive = ((function () {
 		if (element_offset.bottom < 0 || element_offset.top > viewport_height) {
 
 			// Element is no longer visible
-			if (0 <= waypoint.target.className.indexOf('waypoint-visible')) {
+			if (waypoint.target.getAttribute('data-arrived')) {
+				//if (0 <= waypoint.target.className.indexOf('waypoint-visible')) {
 
-				waypoint.target.className = waypoint.target.className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+				//waypoint.target.className = waypoint.target.className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+				waypoint.target.removeAttribute('data-arrived');
 
 				// Call the waypoint's no_longer_visible_callback if defined
 				if ('function' === typeof waypoint.no_longer_visible_callback) {
@@ -104,13 +105,13 @@ window.Arrive = ((function () {
 		else {
 
 			// Element is visible
-			if (0 > waypoint.target.className.indexOf('waypoint-once')) {
-				waypoint.target.className += ' waypoint-once';
+			if (!waypoint.target.getAttribute('data-arrived-once')) {
+				waypoint.target.setAttribute('data-arrived-once', 1);
 			}
 
-			if (0 > waypoint.target.className.indexOf('waypoint-visible')) {
+			if (!waypoint.target.getAttribute('data-arrived')) {
 
-				waypoint.target.className += ' waypoint-visible';
+				waypoint.target.setAttribute('data-arrived', 1);
 
 				// Call the waypoint's visible_callback if defined
 				if ('function' === typeof waypoint.visible_callback) {
@@ -141,9 +142,9 @@ window.Arrive = ((function () {
 			if (element_offset.bottom < 0 || element_offset.top > viewport_height) {
 
 				// Element is no longer visible
-				if (0 <= matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+				if (matching_elements[matching_element_index].getAttribute('data-arrived')) {
 
-					matching_elements[matching_element_index].className = matching_elements[matching_element_index].className.replace(/(?:^|\s)waypoint-visible(?!\S)/, '');
+					matching_elements[matching_element_index].removeAttribute('data-arrived');
 
 					// Call the waypoint's no_longer_visible_callback if defined
 					if ('function' === typeof waypoint.no_longer_visible_callback) {
@@ -156,13 +157,13 @@ window.Arrive = ((function () {
 			else {
 
 				// Element is visible
-				if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-once')) {
-					matching_elements[matching_element_index].className += ' waypoint-once';
+				if (!matching_elements[matching_element_index].getAttribute('data-arrived-once')) {
+					matching_elements[matching_element_index].setAttribute('data-arrived-once', 1);
 				}
 
-				if (0 > matching_elements[matching_element_index].className.indexOf('waypoint-visible')) {
+				if (!matching_elements[matching_element_index].getAttribute('data-arrived')) {
 
-					matching_elements[matching_element_index].className += ' waypoint-visible';
+					matching_elements[matching_element_index].setAttribute('data-arrived', '1');
 
 					// Call the waypoint's visible_callback if defined
 					if ('function' === typeof waypoint.visible_callback) {

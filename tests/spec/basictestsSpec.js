@@ -34,11 +34,11 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 
 		it('added to element when it becomes visible', function () {
-			expect(document.querySelector('#fixture1_paragraph_20').className.split(/\s+/)).toContain('waypoint-once');
+			expect(document.querySelector('#fixture1_paragraph_20').getAttribute('data-arrived-once')).toContain('1');
 		});
 
 		it('element below the viewport does not get waypoint-once class', function () {
-			expect(document.querySelector('#fixture1_paragraph_40').className.split(/\s+/)).not.toContain('waypoint-once');
+			expect(document.querySelector('#fixture1_paragraph_40').getAttribute('data-arrived-once')).not.toContain('1');
 		});
 
 
@@ -61,11 +61,11 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 
 		it('added to element when it becomes visible', function () {
-			expect(document.querySelector('#fixture2_paragraph_20').className.split(/\s+/)).toContain('waypoint-visible');
+			expect(document.querySelector('#fixture2_paragraph_20').getAttribute('data-arrived')).toContain('1');
 		});
 
 		it('element below the viewport does not get waypoint-visible class', function () {
-			expect(document.querySelector('#fixture2_paragraph_40').className.split(/\s+/)).not.toContain('waypoint-visible');
+			expect(document.querySelector('#fixture2_paragraph_40').getAttribute('data-arrived')).not.toContain('1');
 		});
 
 	});
@@ -95,15 +95,15 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 
 		it('removed from element when no longer visible', function () {
-			expect(document.querySelector('#fixture3_paragraph_20').className.split(/\s+/)).not.toContain('waypoint-visible');
+			expect(document.querySelector('#fixture3_paragraph_20').getAttribute('data-arrived')).not.toContain('1');
 		});
 
 		it('still has waypoint-once', function () {
-			expect(document.querySelector('#fixture3_paragraph_20').className.split(/\s+/)).toContain('waypoint-once');
+			expect(document.querySelector('#fixture3_paragraph_20').getAttribute('data-arrived-once')).toContain('1');
 		});
 
 		it('element below the viewport never had waypoint-visible class', function () {
-			expect(document.querySelector('#fixture3_paragraph_40').className.split(/\s+/)).not.toContain('waypoint-visible');
+			expect(document.querySelector('#fixture3_paragraph_40').getAttribute('data-arrived')).not.toContain('1');
 		});
 
 	});
@@ -229,11 +229,11 @@ window.addEventListener('DOMContentLoaded', function () {
 		});
 
 		it('added to element when it becomes visible', function () {
-			expect(document.querySelector('#fixture6_paragraph_20').className.split(/\s+/)).toContain('waypoint-once');
+			expect(document.querySelector('#fixture6_paragraph_20').getAttribute('data-arrived-once')).toContain('1');
 		});
 
 		it('element below the viewport does not get waypoint-once class', function () {
-			expect(document.querySelector('#fixture6_paragraph_40').className.split(/\s+/)).not.toContain('waypoint-once');
+			expect(document.querySelector('#fixture6_paragraph_40').getAttribute('data-arrived-once')).not.toContain('1');
 		});
 
 	});

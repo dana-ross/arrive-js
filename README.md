@@ -16,15 +16,6 @@ The `dist` directory contains concatenated & minified files ready for use in you
 
 Waypoints are added by calling `Arrive.register_element(element)` (where `element` is a DOM Element) or `Arrive.register_selector(selector)` (where `selector` is a CSS selector).
 
-When the specified element or an element matching one of the registered selectors enters the viewport, Arrive adds two classes to it:
-
-| Class | Description |
-|:------|:----------|
-| waypoint-visible | The element is current in the browser's viewport. *This class is removed when the element leaves the viewport.*|
-| waypoint-once | The element entered the browser's viewport at one time. *This class is never removed.*|
-
-*NOTE: This behavior is likely to change. Adding CSS classes may be implemented as a pre-defined callback you can pass to `register_selector()` in future releases.*
-
 ### Passing callbacks at registration time
 
 Callbacks can be passed as the second and third parameters to `Arrive.register_element()`.
@@ -93,5 +84,6 @@ Callbacks can be also passed to `Arrive.register_selector()`.
 
 ## Release History
 
+ * 2014-11-19   v0.3.0   Replaced CSS manipulation with data attributes
  * 2014-11-16   v0.2.0   Added querySelector polyfill
  * 2014-11-16   v0.1.0   Initial release
